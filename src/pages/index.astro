@@ -1,11 +1,100 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products = [
+  {
+    title: "PAC SAFA HAIR OIL - 240ml / 8oz",
+    price: "$50.00 CAD",
+    img: "/images/240mlEdited.jpg",
+    href: "/products/8oz",
+  },
+  {
+    title: "PAC SAFA HAIR OIL - 60ml / 2oz",
+    price: "$30.00 CAD",
+    img: "/images/60mlEdited.jpg",
+    href: "/products/2oz",
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="PAC SAFA">
+  <!-- HERO SECTION -->
+  <section class="relative h-[65vh] md:h-[75vh] bg-black">
+    <img
+      src="/images/spread.webp"
+      alt="PAC SAFA Hero"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-black/35"></div>
+
+    <div
+      class="relative mx-auto max-w-6xl px-6 h-full flex items-center justify-center pt-10 md:pt-0"
+    >
+      <h1
+        class="text-white text-3xl sm:text-4xl md:text-6xl font-light text-center leading-tight px-4"
+      >
+        Browse our latest products
+      </h1>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+    <h2 class="text-3xl font-semibold text-center mb-10">Featured Products</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {
+        products.map((p) => (
+          <a href={p.href} class="group block">
+            <div class="overflow-hidden">
+              <img
+                src={p.img}
+                alt={p.title}
+                class="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition"
+              />
+            </div>
+
+            <div class="pt-4">
+              <p class="text-sm tracking-wide text-neutral-800">{p.title}</p>
+              <p class="text-lg mt-2">{p.price}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- WHY SECTION -->
+  <section id="why" class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
+      <div class="overflow-hidden">
+        <img
+          src="/images/mountains.webp"
+          alt="Why PAC SAFA Works"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <div class="md:pl-6 px-4 sm:px-0">
+        <h2 class="text-3xl font-semibold mb-10">Why PAC SAFA Works</h2>
+
+        <p class="text-neutral-700 leading-8">
+          Our formula blends three proven natural oils that condition and
+          hydrate while supporting healthier-looking hair from the root.
+        </p>
+        <p class="text-neutral-700 leading-8 mt-4">
+          Jojoba oil mimics your scalp’s natural oils, castor oil strengthens
+          and nourishes, and peppermint oil stimulates circulation for a
+          refreshed feel.
+        </p>
+        <p class="text-neutral-700 leading-8 mt-4">
+          Together, these ingredients create a clean, effective formula designed
+          for confident, healthy hair.
+        </p>
+        <p class="text-neutral-700 leading-8 mt-4">
+          Proudly made in Vancouver, BC 🇨🇦
+        </p>
+      </div>
+    </div>
+  </section>
 </Layout>

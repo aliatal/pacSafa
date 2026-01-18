@@ -1,22 +1,78 @@
+---
+import "../styles/global.css";
+
+const { title = "PAC SAFA" } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+  <body class="bg-white text-neutral-900">
+    <!-- Top thin bar -->
+    <div class="border-b border-neutral-200">
+      <div class="mx-auto max-w-6xl px-4 py-2 text-center text-sm text-neutral-700">
+        Welcome to our store
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="border-b border-neutral-200 bg-white sticky top-0 z-50">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="relative flex h-16 items-center justify-center">
+          <!-- Mobile menu button (left) -->
+          <button
+            id="menuBtn"
+            class="absolute left-0 inline-flex items-center justify-center p-2 text-neutral-800 md:hidden"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+
+          <!-- Center brand -->
+          <a href="/" class="tracking-[0.25em] text-xl font-light">
+            PAC SAFA
+          </a>
+
+          <!-- Desktop nav (simple) -->
+          <nav class="absolute right-0 hidden md:flex items-center gap-8 text-sm text-neutral-700">
+            <a href="/" class="hover:text-neutral-900">Home</a>
+            <a href="/#products" class="hover:text-neutral-900">Products</a>
+          </nav>
+        </div>
+
+        <!-- Mobile menu panel -->
+        <div id="mobileMenu" class="hidden md:hidden pb-4">
+          <div class="flex flex-col gap-3 text-sm text-neutral-800">
+            <a href="/" class="py-2">Home</a>
+            <a href="/#products" class="py-2">Products</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <script is:inline>
+      const btn = document.getElementById("menuBtn");
+      const menu = document.getElementById("mobileMenu");
+
+      if (btn && menu) {
+        btn.addEventListener("click", () => {
+          const isOpen = !menu.classList.contains("hidden");
+          menu.classList.toggle("hidden");
+          btn.setAttribute("aria-expanded", String(!isOpen));
+        });
+      }
+    </script>
+  </body>
+</html>
